@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include<cstdio>
 #include<cstdlib>
 #include <regex>
@@ -15,6 +16,7 @@ void inicio();
 void submenu();
 void submenu2();
 void submenu3();
+void menumodificar();
  string n="";
  int num=0;
  int numc=0;
@@ -25,9 +27,18 @@ void submenu3();
  string carreras;
  string correos;
  string pass;
- string creditos;
+ string creditoos;
  int edades;
 
+string carga;
+int valorcarnet;
+int valordpi;
+string valornombre;
+string valorcooreo;
+string valorarrera;
+string vallorpass;
+string valorcredit;
+int valoredad;
 struct node
 {
     int carnet;
@@ -44,7 +55,7 @@ struct node
 struct node* head;
 struct node* tail;
 
-void insertar(int carnet,int dpi,string nombre, string carrera,string correo,string password, string credito,int edad){
+void insertar(int carnet,int dpi,string nombre, string carrera,string password, string credito,int edad,string correo){
 node* nuevo=new node();
 
 nuevo->carnet=carnet;
@@ -118,10 +129,40 @@ if (head!=NULL)
 }else{
 
 
-    cout<<"Lista Vacia Introducir Estudiantes"<<endl;
+    
 }
 
     
+}
+
+void desplegar(int dpi){
+node* actual=new node();
+actual=head;
+if (head!=NULL)
+{
+    while (actual!=NULL)
+    {
+        if(actual->dpi==dpi){
+            valorcarnet=actual->carnet;
+            valordpi=actual->dpi;
+            valornombre=actual->Nombre;
+            valorarrera=actual->carrera;
+            valorcooreo=actual->correo;
+            vallorpass=actual->Password;
+            valoredad=actual->edad;
+            
+
+        }
+
+        actual=actual->next;
+
+    }
+
+    
+    
+}
+
+
 }
 
 bool buscar2(int carnet){
@@ -223,6 +264,24 @@ cout << "Escoja una opcion:" << endl;
         }
 }
 
+
+void menumodificar(){
+    
+    cout<<"Modificar"<<endl;
+    cout<<"Introducir DPI: ";
+    cin>>n;
+    if(n.size()==13){
+
+
+    }else
+    {
+        cout<<"Introducir numero de 13 digitos Presionar Enter para continuar"<<endl;
+        getch();
+        menumodificar();
+    }
+    
+
+}
 void submenu2(){
 
 cout << "Escoja una opcion:" << endl;
@@ -270,10 +329,10 @@ cout << "Escoja una opcion:" << endl;
                                         cout<<"Ingresar Password"<<endl;
                                 cin>>pass;
                                 cout<<"Ingresar Creditos"<<endl;
-                                cin>>creditos;
+                                cin>>creditoos;
                                 cout<<"Ingresar Edad"<<endl;
                                 cin>>edades;
-                                insertar(numc,numd,names,carreras,correos,pass,creditos,edades);
+                                insertar(numc,numd,names,carreras,pass,creditoos,edades,correos);
                                 Clear();
                                 cout<<"----------------------"<<endl;
                                 cout<<"Aguardado Presione Enter para Continuar"<<endl;
@@ -287,6 +346,8 @@ cout << "Escoja una opcion:" << endl;
                                 }else
                                 {
                                     cout<<"Correo Incorrecto Se le mandara de regreso a la pagina anterior"<<endl;
+                                    getch();
+                Clear();
                                     submenu2();
                                 }
                                 
@@ -294,6 +355,9 @@ cout << "Escoja una opcion:" << endl;
                             }else
                 {
                     cout<<"dpi ya registrado"<<endl;
+                getch();
+                Clear();
+                    submenu2();
                 }
                             
 
@@ -312,6 +376,9 @@ cout << "Escoja una opcion:" << endl;
                     }else
                 {
                     cout<<"Carnet ya registrado"<<endl;
+                    getch();
+                Clear();
+                submenu2();
                 }
                 
                     
@@ -322,14 +389,15 @@ cout << "Escoja una opcion:" << endl;
                 
                 
             }else if (num==2)
-            {
+            {    
                 if(vaci()==true){
 
-                        cout<<"Modificar"<<endl;
+                        menumodificar();
 
                 }else
                 {
-                    
+                    getch();
+                    submenu2();
                 }
                 
 
@@ -404,8 +472,105 @@ stringstream ss;
   ss >> num;
 
     if (num==1)
-    {
-        cout<<"ok"<<endl;
+    {   string ruta;
+    string line; 
+        cout<<"Introducir Ruta de Archivo"<<endl;
+        ifstream myfile;
+        cin>>ruta;
+        myfile.open(ruta);
+        getline(myfile,line);
+        while(getline(myfile,line)) {
+            
+            stringstream stream(line);
+            string Carnet,DPI,Nombre,Carrera,Correo,Password,Creditos,Edad;
+
+            getline(stream,Carnet,',');
+            getline(stream,DPI,',');
+            getline(stream,Nombre,',');
+            getline(stream,Carrera,',');
+            getline(stream,Password,',');
+            getline(stream,Creditos,',');
+            
+            getline(stream,Edad,',');
+            getline(stream,Correo,',');
+                    cout<<Carnet<<endl;
+                    cout<<DPI<<endl;
+                    cout<<Correo<<endl;
+             if (Carnet.size()==9)
+                {     stringstream ss;  
+                      ss << Carnet; 
+                      ss >> numc; 
+                         if (buscar2(numc)==false)
+                    {   
+
+
+                            if (DPI.size()==13)
+                            {
+                                stringstream ss;  
+                            ss << DPI; 
+                            ss >> numd; 
+
+                            if (buscar(numd)==false)
+                            {
+                                    regex regexp("^(\\w|\\.|\\_|\\-)+[@](\\w|\\_|\\-|\\.)+[.]\\w{2,3}$");
+                                smatch m; 
+                                if (regex_search(Correo,m,regexp))
+                                {       stringstream ss; 
+                                        int age; 
+                                     ss << Edad; 
+                                            ss >> age; 
+
+                                         insertar(numc,numd,Nombre,Carrera,Password,Creditos,age,Correo);
+                                         
+
+                                }else
+                                {   
+                                    cout<<"error de email";
+                                    
+                                }
+                                
+
+
+                            }else
+                            {
+                                cout<<"dpi ya ingresado: ";
+                                cout<<DPI<<endl;
+                            }
+                            
+
+                                
+
+                            }else
+                            {
+                                 cout<<"Cola de error de numero de dpi";
+                            }
+                            
+                            
+
+                    }   else{
+
+
+                        cout<<"Carnet ya ingresado: ";
+                                cout<<DPI<<endl;
+                    }
+                
+                  
+                }else
+                {
+                    cout<<"Cola de error de numero de carnet";
+                }
+                
+
+
+
+        }
+
+        myfile.close();
+        cout<<"Aguardado"<<endl;
+                                         getch();
+                                         Clear();
+                                         inicio();
+
     }else if (num==2)
     {
         /* code */
