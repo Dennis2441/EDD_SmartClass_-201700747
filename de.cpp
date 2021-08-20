@@ -39,6 +39,121 @@ string valorarrera;
 string vallorpass;
 string valorcredit;
 int valoredad;
+int contador=0;
+bool flag=true;
+
+
+
+
+
+class MyClass {        // The class
+  public:              // Access specifier
+
+struct cola{
+	int id;
+    int conexion;
+    string tipo;
+    string descripcion;
+	struct cola* next;
+    
+} ;
+struct cola* head;
+struct cola* tail;
+
+
+void colaerror(int id,string tipo,string description,int conexion ){
+ cola* nuevo= new cola();
+
+nuevo->id=id;
+nuevo->tipo=tipo;
+nuevo->descripcion=description;
+nuevo->conexion=conexion;
+if(head==NULL){
+    head=nuevo;
+    head->next=NULL;
+    tail=nuevo;
+
+
+}else
+{
+    tail->next=nuevo;
+    nuevo->next=NULL;
+    tail=nuevo;
+}
+
+
+
+}
+
+bool buscarcola(int dato){
+cola* actual= new cola();
+     actual=head;
+     bool encontrado=false;
+     if (head!=NULL)
+     {
+         /* code */
+     }
+     
+
+
+
+
+}
+void eliminardecola(int dato){
+     cola* actual= new cola();
+     actual=head;
+     bool encontrado=false;
+     cola* anterior= new cola();
+     anterior=NULL;
+     if(head !=NULL){
+
+            while (actual->conexion=NULL &&  encontrado!=true)
+            {
+                if (actual->conexion=dato)
+                {
+                    if (actual==head)
+                    {
+                        head=head->next;
+                    }else if (actual==tail)
+                    {
+                        anterior->next=NULL;
+                        tail=anterior;
+                    }else
+                    {
+                        anterior->next=actual->next;
+                    }
+                    encontrado=true;
+                    
+                    
+                    
+                }
+
+                anterior=actual;
+                actual=actual->next;
+                
+            }
+
+
+            
+     }else
+     {
+         cout<<"Cola Vacia No Hay errores"<<endl;
+     }
+     
+
+     
+
+
+}
+
+
+
+
+//-----------------
+};//aqui termina la clase
+//------------------
+
+
 struct node
 {
     int carnet;
@@ -49,13 +164,14 @@ struct node
     string Password;
     string credito;
     int edad;
+    bool aceptada=true;
     struct node* next;
     struct node* prev;
 };
 struct node* head;
 struct node* tail;
 
-void insertar(int carnet,int dpi,string nombre, string carrera,string password, string credito,int edad,string correo){
+void insertar(int carnet,int dpi,string nombre, string carrera,string password, string credito,int edad,string correo, bool ver){
 node* nuevo=new node();
 
 nuevo->carnet=carnet;
@@ -66,6 +182,7 @@ nuevo->carnet=carnet;
     nuevo->Password=password;
     nuevo->credito=credito;
     nuevo->edad=edad;
+    nuevo->aceptada=ver;
 if(head==NULL){
     
     
@@ -271,13 +388,13 @@ void menumodificar(){
     cout<<"Introducir DPI: ";
     cin>>n;
     if(n.size()==13){
-
+            
 
     }else
     {
         cout<<"Introducir numero de 13 digitos Presionar Enter para continuar"<<endl;
         getch();
-        menumodificar();
+        submenu2();
     }
     
 
@@ -332,7 +449,7 @@ cout << "Escoja una opcion:" << endl;
                                 cin>>creditoos;
                                 cout<<"Ingresar Edad"<<endl;
                                 cin>>edades;
-                                insertar(numc,numd,names,carreras,pass,creditoos,edades,correos);
+                                insertar(numc,numd,names,carreras,pass,creditoos,edades,correos,flag);
                                 Clear();
                                 cout<<"----------------------"<<endl;
                                 cout<<"Aguardado Presione Enter para Continuar"<<endl;
@@ -493,9 +610,10 @@ stringstream ss;
             
             getline(stream,Edad,',');
             getline(stream,Correo,',');
-                    cout<<Carnet<<endl;
-                    cout<<DPI<<endl;
+                    cout<<"Carnet:"+Carnet<<endl;
+                    cout<<"DPI"+DPI<<endl;
                     cout<<Correo<<endl;
+                    getch();
              if (Carnet.size()==9)
                 {     stringstream ss;  
                       ss << Carnet; 
@@ -520,7 +638,7 @@ stringstream ss;
                                      ss << Edad; 
                                             ss >> age; 
 
-                                         insertar(numc,numd,Nombre,Carrera,Password,Creditos,age,Correo);
+                                         insertar(numc,numd,Nombre,Carrera,Password,Creditos,age,Correo,flag);
                                          
 
                                 }else
@@ -542,7 +660,7 @@ stringstream ss;
 
                             }else
                             {
-                                 cout<<"Cola de error de numero de dpi";
+                                 cout<<"Cola de error de numero de dpi"<<endl;
                             }
                             
                             
@@ -551,13 +669,13 @@ stringstream ss;
 
 
                         cout<<"Carnet ya ingresado: ";
-                                cout<<DPI<<endl;
+                                cout<<Carnet<<endl;
                     }
                 
                   
                 }else
                 {
-                    cout<<"Cola de error de numero de carnet";
+                    cout<<"Cola de error de numero de carnet"<<endl;
                 }
                 
 
