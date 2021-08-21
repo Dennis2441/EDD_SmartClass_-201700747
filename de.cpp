@@ -29,6 +29,9 @@ void menumodificar();
  string pass;
  string creditoos;
  int edades;
+ int contadorid=0;
+ int dpibu;
+ int carnetbu;
 
 string carga;
 int valorcarnet;
@@ -86,13 +89,28 @@ if(head==NULL){
 }
 
 bool buscarcola(int dato){
+
 cola* actual= new cola();
      actual=head;
      bool encontrado=false;
      if (head!=NULL)
      {
-         /* code */
-     }
+         while(actual!=NULL && encontrado != true){
+                if (actual->conexion==dato)
+                {
+                    encontrado=true;
+                    return encontrado;
+
+                }
+
+                actual = actual->next;
+                
+
+         }
+
+     }if(!encontrado){
+			return false;
+		}
      
 
 
@@ -154,6 +172,138 @@ void eliminardecola(int dato){
 //------------------
 
 
+
+MyClass cola1;
+MyClass cola2;
+
+
+
+struct node2
+{   
+    int id;
+    int carnet;
+    string Nombre;
+    string Descripcion;
+    string materia;
+    string fecha;
+    string hora;
+    bool aceptada;
+    string estado;
+    
+    struct node2* next;
+    struct node2* prev;
+};struct node2* head2;
+struct node2* tail2;
+
+void insertarea(int carnet, string nombree,string descripcionn,string materia,string fecha,string estado,bool acepta){
+node2* nuevo=new node2();
+contadorid=contador+1;
+nuevo->id=contadorid;
+nuevo->carnet=carnet;
+nuevo->Nombre=nombree;
+nuevo->Descripcion=descripcionn;
+nuevo->materia=materia;
+nuevo->fecha=fecha;
+nuevo->estado=estado;
+nuevo->aceptada=acepta;
+if(head2==NULL){
+
+head2=nuevo;
+    nuevo->next=NULL;
+    nuevo->prev=tail2;
+    tail2=nuevo;
+
+}else
+{
+    tail2->next=nuevo;
+nuevo->next=NULL;
+nuevo->prev=tail2;
+tail2=nuevo;
+}
+
+
+
+}
+bool vacita(){
+    if (head2!=NULL)
+    {
+        cout<<"";
+        return true;
+    }else
+    {
+        cout<<"Lista Vacia Introducir datos"<<endl;
+        return false;
+    }
+    
+    
+
+
+}
+bool buscartarea(int carnet){
+    node2* actual=new node2();
+    actual=head2;
+    bool flag=false;
+    if (head2!=NULL)
+    {
+        while (actual!=NULL && flag!=true)
+        {
+            if(actual->carnet==carnet){
+                flag=true;
+                return flag;
+
+            }
+
+            actual=actual->next;
+
+        }
+
+        if(!flag){
+
+
+            
+            return flag;
+        }
+        
+    }else{
+
+
+        
+    }
+
+        
+    }
+void modificartare(int carnet, string nombree,string descripcionn,string materia,string fecha,string estado,bool acepta){
+    node2* actual=new node2();
+    actual=head2;
+    bool encontrado=false;
+    if(head2==NULL){
+
+            while (actual!=NULL && encontrado!=true)
+            {
+                        if (actual->carnet==carnetbu)
+                        {
+                            actual->id=contadorid;
+                            actual->carnet=carnet;
+                            actual->Nombre=nombree;
+                            actual->Descripcion=descripcionn;
+                            actual->materia=materia;
+                            actual->fecha=fecha;
+                            actual->estado=estado;
+                            actual->aceptada=acepta;
+                        }
+
+                        actual=actual->next;
+                        
+            }
+            
+
+    }
+
+
+}
+
+
+
 struct node
 {
     int carnet;
@@ -164,7 +314,7 @@ struct node
     string Password;
     string credito;
     int edad;
-    bool aceptada=true;
+    bool aceptada;
     struct node* next;
     struct node* prev;
 };
@@ -316,7 +466,37 @@ if (head!=NULL)
     
 }
 
-void modificar( string carnet,string dpi,string nombre, string carrera,string correo,string password, string credito,int edad){
+void modificar( int carnet,int dpi,string nombre, string carrera,string password, string credito,int edad,string correo, bool ver){
+node* actual=new node();
+actual=head;
+
+bool encontrado=false;
+
+if (head!=NULL)
+{   
+
+    while(actual!=NULL && encontrado!=true){
+
+
+        if (actual->dpi==dpibu)
+        {
+
+            actual->carnet=carnet;
+    actual->dpi=dpi;
+    actual->Nombre=nombre;
+    actual->carrera=carrera;
+    actual->correo=correo;
+    actual->Password=password;
+    actual->credito=credito;
+    actual->edad=edad;
+    actual->aceptada=ver;
+            
+        }actual=actual->next;
+        
+    }
+
+
+}
 
 
 
@@ -382,17 +562,195 @@ cout << "Escoja una opcion:" << endl;
 }
 
 
+void cambiares(){
+    string cambio;
+cout<<"Presionar 1 si Quiere Cambiar El DPI: "+valordpi<<endl;
+cout<<"Presionar 2 si Quiere Cambiar El carnet: "+valorcarnet<<endl;
+cout<<"Presionar 3 si Quiere Cambiar La carrera: "+valorarrera<<endl;
+cout<<"Presionar 4 si Quiere Cambiar El Nombre: "+valornombre<<endl;
+cout<<"Presionar 5 si Quiere Cambiar El Password: "+vallorpass<<endl;
+cout<<"Presionar 6 si Quiere Cambiar Creditos: "+valorcredit<<endl;
+cout<<"Presionar 7 si Quiere Cambiar LA edad: "+valoredad<<endl;
+cout<<"Presionar 8 si Quiere Cambiar EL correro: "+valorcooreo<<endl;
+cout<<"Presionar 9 Guardar Datos Y regresar: "+valoredad<<endl;
+cin>>n;
+if(check_number(n)==true){
+        stringstream ss;  
+            ss << n;  
+            ss >> num;
+            if(num==1){
+
+                    cout<<"Introducir Nuevo DPI:";
+                    cin>>cambio;
+                    if(cambio.size()==13){
+                        ss<<cambio;
+                    ss>>valordpi;
+                    cout<<"Cambio Hecho"<<endl;
+                    getch();
+                    Clear();
+                    cambiares();
+                    }else
+                    {
+                        cout<<"No tiene 13 numeros el DPI";
+                        getch();
+                        Clear();
+                        cambiares();
+                    }
+                    
+                    
+
+            }else if (num==2)
+            {   
+                    cout<<"Introducir Nuevo Carnet:";
+                    cin>>cambio;
+                if(cambio.size()==9){
+
+
+                    ss<<cambio;
+                    ss>>valorcarnet;
+                    cout<<"Cambio Hecho"<<endl;
+                    getch();
+                    Clear();
+                    cambiares();
+                }else
+                    {
+                        cout<<"No tiene 9 numeros el Carnet";
+                        getch();
+                        Clear();
+                        cambiares();
+                    }
+                
+                    
+            }
+            else if (num==3)
+            {
+                cout<<"Introducir Nueva Carrera:";
+                    cin>>cambio;
+                    valorarrera=cambio;
+                    cout<<"Cambio Hecho"<<endl;
+                    getch();
+                    Clear();
+                    cambiares();
+            }else if (num==4)
+            {
+                cout<<"Introducir Nuevo Nombre:";
+                    cin>>cambio;
+                    valornombre=cambio;
+                    cout<<"Cambio Hecho"<<endl;
+                    getch();
+                    Clear();
+                    cambiares();
+            }
+            else if (num==5)
+            {
+                cout<<"Introducir Nuevo Password:";
+                    cin>>cambio;
+                    vallorpass=cambio;
+                    cout<<"Cambio Hecho"<<endl;
+                    getch();
+                    Clear();
+                    cambiares();
+            }
+            else if (num==6)
+            {
+                cout<<"Introducir Nuevo Creditos:";
+                    cin>>cambio;
+                    valorcredit=cambio;
+                    cout<<"Cambio Hecho"<<endl;
+                    getch();
+                    Clear();
+                    cambiares();
+            }else if (num==7)
+            {
+                cout<<"Introducir Nuevo Edad:";
+                    cin>>cambio;
+                    ss<<cambio;
+                    ss>>valoredad;
+                    cout<<"Cambio Hecho"<<endl;
+                    getch();
+                    Clear();
+                    cambiares();
+
+
+            }else if (num==8)
+            {
+                cout<<"Introducir Nuevo Correo:";
+                    cin>>cambio;
+                    regex regexp("^(\\w|\\.|\\_|\\-)+[@](\\w|\\_|\\-|\\.)+[.]\\w{2,3}$");
+                    smatch m; 
+                                if (regex_search(cambio,m,regexp))
+                                {
+                                        valorcooreo=cambio;
+                                        cout<<"Cambio Hecho"<<endl;
+                                        getch();
+                                        Clear();
+                                        cambiares();
+
+                                }else
+                                {
+                                    cout<<"Formato Incorrecto";
+                                        getch();
+                                        Clear();
+                                        cambiares();
+                                }
+                                
+                    
+
+
+            }
+            
+            
+            else if (num==9)
+            {
+                
+                    cout<<"Cambios Hechos Y Aguardados"<<endl;
+                    getch();
+                    Clear();
+                    submenu2();
+            }
+            
+
+}else
+{
+    cout<<"Escoja Un numero Porfavor, Presione cualquier tecla para continuar";
+    getch();
+    Clear();
+    cambiares();
+
+}
+
+
+}
+
 void menumodificar(){
     
-    cout<<"Modificar"<<endl;
+    string verdad;
     cout<<"Introducir DPI: ";
     cin>>n;
     if(n.size()==13){
-            
+            stringstream ss;  
+            ss << n;  
+            ss >> num;
+
+            if(buscar(num)==true){
+                    dpibu=num;
+                    desplegar(num);
+                    cambiares();
+
+
+            }
+            else{
+                
+                    cout<<"No Esta el DPI Indicado"<<endl;
+                    getch();
+                    submenu2();
+                
+            }
 
     }else
     {
         cout<<"Introducir numero de 13 digitos Presionar Enter para continuar"<<endl;
+        
         getch();
         submenu2();
     }
