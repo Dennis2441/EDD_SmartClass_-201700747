@@ -44,6 +44,7 @@ string valorcredit;
 int valoredad;
 int contador=0;
 bool flag=true;
+bool valorfal;
 
 
 
@@ -333,6 +334,7 @@ nuevo->carnet=carnet;
     nuevo->credito=credito;
     nuevo->edad=edad;
     nuevo->aceptada=ver;
+
 if(head==NULL){
     
     
@@ -417,6 +419,7 @@ if (head!=NULL)
             valorcooreo=actual->correo;
             vallorpass=actual->Password;
             valoredad=actual->edad;
+            valorfal=actual->aceptada;
             
 
         }
@@ -563,16 +566,67 @@ cout << "Escoja una opcion:" << endl;
 
 
 void cambiares(){
-    string cambio;
-cout<<"Presionar 1 si Quiere Cambiar El DPI: "+valordpi<<endl;
-cout<<"Presionar 2 si Quiere Cambiar El carnet: "+valorcarnet<<endl;
+string cambio;
+bool ban=true;
+stringstream sa;
+sa << valordpi;
+string dva=sa.str();
+sa << valorcarnet;
+string cva=sa.str();
+sa << valoredad;
+string eva=sa.str();
+ regex regexp("^(\\w|\\.|\\_|\\-)+[@](\\w|\\_|\\-|\\.)+[.]\\w{2,3}$");
+ smatch m;
+cout<<"----------------------------------------------------------"<<endl;
+if(valorfal==true){
+
+    ban=true;
+}else
+{
+    if (dva.size()==13)
+{
+    /* code */
+}else
+{
+    ban=false;
+}
+
+if (cva.size()==9)
+{
+    /* code */
+}else
+{
+    ban=false;
+}
+
+if (regex_search(valorcooreo,m,regexp))
+                                {
+
+
+}else
+{
+    ban=false;
+}
+}
+
+
+
+
+
+
+
+
+
+
+cout<<"Presionar 1 si Quiere Cambiar El DPI: "+dva<<endl;
+cout<<"Presionar 2 si Quiere Cambiar El carnet: "+cva<<endl;
 cout<<"Presionar 3 si Quiere Cambiar La carrera: "+valorarrera<<endl;
 cout<<"Presionar 4 si Quiere Cambiar El Nombre: "+valornombre<<endl;
 cout<<"Presionar 5 si Quiere Cambiar El Password: "+vallorpass<<endl;
 cout<<"Presionar 6 si Quiere Cambiar Creditos: "+valorcredit<<endl;
-cout<<"Presionar 7 si Quiere Cambiar LA edad: "+valoredad<<endl;
+cout<<"Presionar 7 si Quiere Cambiar LA edad: "+eva<<endl;
 cout<<"Presionar 8 si Quiere Cambiar EL correro: "+valorcooreo<<endl;
-cout<<"Presionar 9 Guardar Datos Y regresar: "+valoredad<<endl;
+cout<<"Presionar 9 Guardar Datos Y regresar: "<<endl;
 cin>>n;
 if(check_number(n)==true){
         stringstream ss;  
@@ -588,7 +642,9 @@ if(check_number(n)==true){
                     cout<<"Cambio Hecho"<<endl;
                     getch();
                     Clear();
+                    ban=true;
                     cambiares();
+                    
                     }else
                     {
                         cout<<"No tiene 13 numeros el DPI";
@@ -611,7 +667,9 @@ if(check_number(n)==true){
                     cout<<"Cambio Hecho"<<endl;
                     getch();
                     Clear();
+                    ban=true;
                     cambiares();
+                    
                 }else
                     {
                         cout<<"No tiene 9 numeros el Carnet";
@@ -676,14 +734,14 @@ if(check_number(n)==true){
             {
                 cout<<"Introducir Nuevo Correo:";
                     cin>>cambio;
-                    regex regexp("^(\\w|\\.|\\_|\\-)+[@](\\w|\\_|\\-|\\.)+[.]\\w{2,3}$");
-                    smatch m; 
+                    
                                 if (regex_search(cambio,m,regexp))
                                 {
                                         valorcooreo=cambio;
                                         cout<<"Cambio Hecho"<<endl;
                                         getch();
                                         Clear();
+                                        ban=true;
                                         cambiares();
 
                                 }else
@@ -702,15 +760,42 @@ if(check_number(n)==true){
             
             else if (num==9)
             {
-                
+                insertar(valordpi,valorcarnet,valornombre,valorarrera,vallorpass,valorcredit,valoredad,valorcooreo,ban);
+                    if(valorfal==true){
+                        Clear();
+                        
+
+                    }else
+                    {
+                        if(ban==false){
+                            cout<<"Revisar algun Datos ya que alguno esta malo"<<endl;
+                        }
+                        else
+                        {
+                            if(cola1.buscarcola(dpibu)==true){
+
+                                cola1.eliminardecola(dpibu);
+                            }
+                            
+                        }
+                        
+                    }
+                    
                     cout<<"Cambios Hechos Y Aguardados"<<endl;
                     getch();
                     Clear();
                     submenu2();
             }
             
+            
+            
+                    
+            
+            
 
-}else
+}
+
+else
 {
     cout<<"Escoja Un numero Porfavor, Presione cualquier tecla para continuar";
     getch();
