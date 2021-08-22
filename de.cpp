@@ -185,6 +185,7 @@ struct node2
     int id;
     string dia;
     string hora;
+    string mes;
     string carnet;
     string Nombre;
     string Descripcion;
@@ -199,11 +200,12 @@ struct node2
 };struct node2* head2;
 struct node2* tail2;
 
-void insertarea(string dia,string  hora,string carnet, string nombree,string descripcionn,string materia,string fecha,string estado,bool acepta){
+void insertarea(string dia,string mes,string  hora,string carnet, string nombree,string descripcionn,string materia,string fecha,string estado,bool acepta){
 node2* nuevo=new node2();
 contadorid=contador+1;
 nuevo->dia=dia;
 nuevo->hora=hora;
+nuevo->mes=mes;
 nuevo->id=contadorid;
 nuevo->carnet=carnet;
 nuevo->Nombre=nombree;
@@ -775,9 +777,9 @@ if(check_number(n)==true){
                         }
                         else
                         {
-                            if(cola1.buscarcola(dpibu)==true){
+                            if(cola2.buscarcola(dpibu)==true){
 
-                                cola1.eliminardecola(dpibu);
+                                cola2.eliminardecola(dpibu);
                             }
                             
                         }
@@ -987,14 +989,53 @@ cout << "Escoja una opcion:" << endl;
         cout << "4.- Salir" << endl;
         cout<<"Escoger: ";
         cin>>n;
-
+        
         if(check_number(n)==true){
             stringstream ss;  
             ss << n;  
             ss >> num;
             if(num==1){
-
+                string mes,dia,hora,carnet,nom,descrip,mat,fecha,estado;
                 cout<<"Ingresar"<<endl;
+                cout<<"Introducir Mes: ";
+                cin>>mes;
+                cout<<"Introducir dia: ";
+                cin>>dia;
+                cout<<"Introducir hora: ";
+                cin>>hora;
+                cout<<"Introducir Carnet: ";
+                cin>>carnet;
+                if(carnet.size()==9){
+
+                    if(buscar2(carnet)==true){
+                        cout<<"Introducir nombre: ";
+                cin>>nom;
+                cout<<"Introducir descripcion: ";
+                cin>>descrip;
+                cout<<"Introducir materia: ";
+                cin>>mat;
+                cout<<"Introducir fecha YY/MM/DD : ";
+                cin>>fecha;
+                cout<<"Introducir estado: ";
+                cin>>estado;
+
+                insertarea(dia,mes,hora,carnet,nom,descrip,mat,fecha,estado,true);
+                cout<<"Guardado"<<endl;
+                Clear();
+                submenu3();
+
+                    }else
+                {
+                    cout<<"Carnet no existe"<<endl;
+                    submenu3();
+                }
+                }else
+                {
+                    cout<<"Carnet no tiene 9 digitos"<<endl;
+                    submenu3();
+                }
+                
+
             }else if (num==2)
             {
                 cout<<"Modificar"<<endl;
@@ -1121,19 +1162,22 @@ stringstream ss;
 
                             insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
                             cola1.colaerror("Estudiante","Carnet Ya existe, Correo no tiene formato correcto y DPI no tiene 13 numeros",DPI);
+                            cola2.colaerror("Estudiante","Carnet Ya existe, Correo no tiene formato correcto y DPI no tiene 13 numeros",DPI);
                         }else if (dp==true)
                         {
                             insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
                             cola1.colaerror("Estudiante","Carnet Ya existe  y DPI no tiene 13 numeros",DPI);
-
+                            cola2.colaerror("Estudiante","Carnet Ya existe  y DPI no tiene 13 numeros",DPI);
                         }else if (co==true)
                         {
                             insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
                             cola1.colaerror("Estudiante","Carnet Ya existe Y Correo no tiene formato correcto ",DPI);
+                            cola2.colaerror("Estudiante","Carnet Ya existe Y Correo no tiene formato correcto ",DPI);
                         }else
                         {
                             insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
                             cola1.colaerror("Estudiante","Carnet Ya existe",DPI);
+                            cola2.colaerror("Estudiante","Carnet Ya existe",DPI);
                         }
                         
                     }
@@ -1143,15 +1187,17 @@ stringstream ss;
 
                             insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
                             cola1.colaerror("Estudiante"," Correo no tiene formato correcto y DPI no tiene 13 numeros",DPI);
+                            cola2.colaerror("Estudiante"," Correo no tiene formato correcto y DPI no tiene 13 numeros",DPI);
                         }else if (dp==true)
                         {
                             insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
                             cola1.colaerror("Estudiante"," DPI no tiene 13 numeros",DPI);
-
+                            cola2.colaerror("Estudiante"," DPI no tiene 13 numeros",DPI);
                         }else if (co==true)
                         {
                             insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
                             cola1.colaerror("Estudiante","Correo no tiene formato correcto ",DPI);
+                            cola2.colaerror("Estudiante","Correo no tiene formato correcto ",DPI);
                         }else
                         {
                             insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
@@ -1210,29 +1256,42 @@ stringstream ss;
 
             if(buscar2(Carnet)==false){
 
-             car=true;
+             car=false;
              flag=false;
 
             }
             if(check_number(mes)==false){
 
-                me=true;
+                me=false;
             }
             if (check_number(dia)==false)
             {
-                di=true;
+                di=false;
             }
             if (check_number(hora)==false)
             {
-                ho=true;
+                ho=false;
             }
             if(Carnet.size()==9){
 
                 
             }else{
 
-                si=true;
+                si=false;
             }
+
+            if(car==false && si==false ){
+
+                insertarea(dia,mes,hora,Carnet,Nombre,descrip,materia,fecha,estado,flag);
+                cola1.colaerror("Tarea","Carnet no registrado y no tiene 9 digitos",Carnet);
+                cola2.colaerror("Tarea","Carnet no registrado y no tiene 9 digitos",Carnet);
+
+            }else
+            {
+                insertarea(dia,mes,hora,Carnet,Nombre,descrip,materia,fecha,estado,flag);
+            }
+            
+
 
 
             
