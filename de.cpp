@@ -183,6 +183,8 @@ MyClass cola2;
 struct node2
 {   
     int id;
+    string dia;
+    string hora;
     string carnet;
     string Nombre;
     string Descripcion;
@@ -197,9 +199,11 @@ struct node2
 };struct node2* head2;
 struct node2* tail2;
 
-void insertarea(string carnet, string nombree,string descripcionn,string materia,string fecha,string estado,bool acepta){
+void insertarea(string dia,string  hora,string carnet, string nombree,string descripcionn,string materia,string fecha,string estado,bool acepta){
 node2* nuevo=new node2();
 contadorid=contador+1;
+nuevo->dia=dia;
+nuevo->hora=hora;
 nuevo->id=contadorid;
 nuevo->carnet=carnet;
 nuevo->Nombre=nombree;
@@ -1180,8 +1184,70 @@ stringstream ss;
 
     }else if (num==2)
     {
-        /* code */
-        cout<<"ok"<<endl;
+        string ruta;
+    string line; 
+        cout<<"Introducir Ruta de Archivo"<<endl;
+        ifstream myfile;
+        cin>>ruta;
+        myfile.open(ruta);
+        getline(myfile,line);
+        while(getline(myfile,line)) {
+            stringstream stream(line);
+            bool car,me,di,ho,si;
+            int month,day,time;
+            string mes,dia,hora, Carnet,Nombre,descrip,materia,fecha,estado;
+            getline(stream,mes,',');
+            getline(stream,dia,',');
+            getline(stream,hora,',');
+            getline(stream,Carnet,',');
+            getline(stream,Nombre,',');
+            getline(stream,descrip,',');
+            getline(stream,materia,',');
+            getline(stream,fecha,',');
+            getline(stream,estado,',');
+            stringstream sa;
+            
+
+            if(buscar2(Carnet)==false){
+
+             car=true;
+             flag=false;
+
+            }
+            if(check_number(mes)==false){
+
+                me=true;
+            }
+            if (check_number(dia)==false)
+            {
+                di=true;
+            }
+            if (check_number(hora)==false)
+            {
+                ho=true;
+            }
+            if(Carnet.size()==9){
+
+                
+            }else{
+
+                si=true;
+            }
+
+
+            
+            
+
+
+
+
+
+
+            
+            
+            
+        }
+        myfile.close();
     }else if (num==3)
     {   Clear();
         submenu();
