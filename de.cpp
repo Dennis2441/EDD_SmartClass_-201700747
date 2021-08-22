@@ -313,7 +313,7 @@ void modificartare(string carnet, string nombree,string descripcionn,string mate
 
 
 struct node
-{
+{   
     string carnet;
     string dpi;
     string Nombre;
@@ -409,6 +409,43 @@ if (head!=NULL)
 }
 
     
+}
+
+void imprimir(){
+    node* actual=new node();
+    ofstream archivo;
+    contador=0;
+    archivo.open("Estudiante.txt", ios::out);
+    archivo<<"diagraph G { \n";
+    archivo<<"rankdir=LR; { \n";
+    archivo<<"node[shape= record]; { \n";
+    archivo<<"edge[dir=\"both\"]; G { \n";
+
+    while(actual!=NULL){
+            string cot=std::to_string(contador);
+            string cot2=std::to_string(contador+1);
+            string ed=std::to_string(actual->edad);
+            
+            archivo<<"nodo"+cot<<"[label]\"Nombre:"+actual->Nombre+"\n Carnet:" +actual->carnet+"\n DPI:"+actual->dpi+"\n Carrera:"+actual->carrera+"\n Password:"+actual->Password+"\n Creditos:"+actual->credito+"\n Edad:"+ed+"\"]";
+            if(actual->next==NULL){
+                     archivo<<"\n nodo"+ cot+"\n";
+               
+            }else{
+
+                 archivo<<"\n nodo"+ cot+"->"+"nodo" + cot2+"\n";
+            }
+contador++;
+actual=actual->next;
+    }
+archivo<<"} \n";
+archivo.close();
+string cmd="dot -Tpgn Estudiante.txt -o Estudiante.png";
+system(cmd.c_str());
+
+
+
+
+
 }
 
 void desplegar(string dpi){
