@@ -812,6 +812,30 @@ else
 
 }
 
+void modfi(){
+cout<<"Introducir carnet: ";
+    cin>>n;
+    carnetbu=n;
+    if(n.size()==9){
+            if(buscartarea(n)==true){
+
+
+            }else{
+cout<<"Carnet no existe"<<endl;
+        submenu3();
+
+
+            }
+
+    }else
+    {   
+        cout<<"Carnet no correcto"<<endl;
+        submenu3();
+    }
+    
+
+}
+
 void menumodificar(){
     
     string verdad;
@@ -967,7 +991,12 @@ cout << "Escoja una opcion:" << endl;
 
             }else if (num==3)
             {
-                cout<<"Elminiar"<<endl;
+                cout<<"Introducir DPI"<<endl;
+                cin>>n;
+                if(buscar(n)==true){
+
+                    
+                }
             }
             
             
@@ -1039,6 +1068,7 @@ cout << "Escoja una opcion:" << endl;
             }else if (num==2)
             {
                 cout<<"Modificar"<<endl;
+                modfi();
             }else if (num==3)
             {
                 cout<<"Elminiar"<<endl;
