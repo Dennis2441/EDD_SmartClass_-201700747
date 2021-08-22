@@ -191,7 +191,7 @@ struct node2
     string Descripcion;
     string materia;
     string fecha;
-    string hora;
+    
     bool aceptada;
     string estado;
     
@@ -1143,7 +1143,9 @@ cout << "Escoja una opcion:" << endl;
             
 
         }
-}
+        }}
+
+
 void inicio(){
 
 
