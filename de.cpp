@@ -7,7 +7,7 @@
 #include<cstdlib>
 #include <regex>
 #include <conio.h>
-
+#include <cstdlib>
 #include<string.h> 
 using namespace std;
 
@@ -30,12 +30,12 @@ void menumodificar();
  string creditoos;
  int edades;
  int contadorid=0;
- int dpibu;
- int carnetbu;
-
+ string dpibu;
+ string carnetbu;
+ int idd=0;
 string carga;
-int valorcarnet;
-int valordpi;
+string valorcarnet;
+string valordpi;
 string valornombre;
 string valorcooreo;
 string valorarrera;
@@ -55,7 +55,7 @@ class MyClass {        // The class
 
 struct cola{
 	int id;
-    int conexion;
+    string conexion;
     string tipo;
     string descripcion;
 	struct cola* next;
@@ -65,10 +65,10 @@ struct cola* head;
 struct cola* tail;
 
 
-void colaerror(int id,string tipo,string description,int conexion ){
+void colaerror(string tipo,string description,string conexion ){
  cola* nuevo= new cola();
-
-nuevo->id=id;
+idd=idd+1;
+nuevo->id=idd;
 nuevo->tipo=tipo;
 nuevo->descripcion=description;
 nuevo->conexion=conexion;
@@ -89,7 +89,7 @@ if(head==NULL){
 
 }
 
-bool buscarcola(int dato){
+bool buscarcola(string dato){
 
 cola* actual= new cola();
      actual=head;
@@ -118,7 +118,8 @@ cola* actual= new cola();
 
 
 }
-void eliminardecola(int dato){
+
+void eliminardecola(string dato){
      cola* actual= new cola();
      actual=head;
      bool encontrado=false;
@@ -126,9 +127,9 @@ void eliminardecola(int dato){
      anterior=NULL;
      if(head !=NULL){
 
-            while (actual->conexion=NULL &&  encontrado!=true)
+            while (actual!=NULL &&  encontrado!=true)
             {
-                if (actual->conexion=dato)
+                if (actual->conexion==dato)
                 {
                     if (actual==head)
                     {
@@ -182,7 +183,7 @@ MyClass cola2;
 struct node2
 {   
     int id;
-    int carnet;
+    string carnet;
     string Nombre;
     string Descripcion;
     string materia;
@@ -196,7 +197,7 @@ struct node2
 };struct node2* head2;
 struct node2* tail2;
 
-void insertarea(int carnet, string nombree,string descripcionn,string materia,string fecha,string estado,bool acepta){
+void insertarea(string carnet, string nombree,string descripcionn,string materia,string fecha,string estado,bool acepta){
 node2* nuevo=new node2();
 contadorid=contador+1;
 nuevo->id=contadorid;
@@ -240,7 +241,7 @@ bool vacita(){
 
 
 }
-bool buscartarea(int carnet){
+bool buscartarea(string carnet){
     node2* actual=new node2();
     actual=head2;
     bool flag=false;
@@ -273,7 +274,7 @@ bool buscartarea(int carnet){
 
         
     }
-void modificartare(int carnet, string nombree,string descripcionn,string materia,string fecha,string estado,bool acepta){
+void modificartare(string carnet, string nombree,string descripcionn,string materia,string fecha,string estado,bool acepta){
     node2* actual=new node2();
     actual=head2;
     bool encontrado=false;
@@ -307,8 +308,8 @@ void modificartare(int carnet, string nombree,string descripcionn,string materia
 
 struct node
 {
-    int carnet;
-    int dpi;
+    string carnet;
+    string dpi;
     string Nombre;
     string carrera;
     string correo;
@@ -322,7 +323,7 @@ struct node
 struct node* head;
 struct node* tail;
 
-void insertar(int carnet,int dpi,string nombre, string carrera,string password, string credito,int edad,string correo, bool ver){
+void insertar(string carnet,string dpi,string nombre, string carrera,string password, string credito,int edad,string correo, bool ver){
 node* nuevo=new node();
 
 nuevo->carnet=carnet;
@@ -370,7 +371,7 @@ bool vaci(){
 
 
 }
-bool buscar(int dpi){
+bool buscar(string dpi){
 node* actual=new node();
 actual=head;
 bool flag=false;
@@ -404,7 +405,7 @@ if (head!=NULL)
     
 }
 
-void desplegar(int dpi){
+void desplegar(string dpi){
 node* actual=new node();
 actual=head;
 if (head!=NULL)
@@ -435,7 +436,7 @@ if (head!=NULL)
 
 }
 
-bool buscar2(int carnet){
+bool buscar2(string carnet){
 node* actual=new node();
 actual=head;
 bool flag=false;
@@ -469,7 +470,7 @@ if (head!=NULL)
     
 }
 
-void modificar( int carnet,int dpi,string nombre, string carrera,string password, string credito,int edad,string correo, bool ver){
+void modificar( string carnet,string dpi,string nombre, string carrera,string password, string credito,int edad,string correo, bool ver){
 node* actual=new node();
 actual=head;
 
@@ -569,9 +570,8 @@ void cambiares(){
 string cambio;
 bool ban=true;
 stringstream sa;
-sa << valordpi;
-string dva=sa.str();
-sa << valorcarnet;
+
+
 string cva=sa.str();
 sa << valoredad;
 string eva=sa.str();
@@ -583,7 +583,7 @@ if(valorfal==true){
     ban=true;
 }else
 {
-    if (dva.size()==13)
+    if (valordpi.size()==13)
 {
     /* code */
 }else
@@ -591,7 +591,7 @@ if(valorfal==true){
     ban=false;
 }
 
-if (cva.size()==9)
+if (valorcarnet.size()==9)
 {
     /* code */
 }else
@@ -618,8 +618,8 @@ if (regex_search(valorcooreo,m,regexp))
 
 
 
-cout<<"Presionar 1 si Quiere Cambiar El DPI: "+dva<<endl;
-cout<<"Presionar 2 si Quiere Cambiar El carnet: "+cva<<endl;
+cout<<"Presionar 1 si Quiere Cambiar El DPI: "+valordpi<<endl;
+cout<<"Presionar 2 si Quiere Cambiar El carnet: "+valorcarnet<<endl;
 cout<<"Presionar 3 si Quiere Cambiar La carrera: "+valorarrera<<endl;
 cout<<"Presionar 4 si Quiere Cambiar El Nombre: "+valornombre<<endl;
 cout<<"Presionar 5 si Quiere Cambiar El Password: "+vallorpass<<endl;
@@ -637,8 +637,7 @@ if(check_number(n)==true){
                     cout<<"Introducir Nuevo DPI:";
                     cin>>cambio;
                     if(cambio.size()==13){
-                        ss<<cambio;
-                    ss>>valordpi;
+                        
                     cout<<"Cambio Hecho"<<endl;
                     getch();
                     Clear();
@@ -662,8 +661,7 @@ if(check_number(n)==true){
                 if(cambio.size()==9){
 
 
-                    ss<<cambio;
-                    ss>>valorcarnet;
+                    
                     cout<<"Cambio Hecho"<<endl;
                     getch();
                     Clear();
@@ -760,7 +758,8 @@ if(check_number(n)==true){
             
             else if (num==9)
             {
-                insertar(valordpi,valorcarnet,valornombre,valorarrera,vallorpass,valorcredit,valoredad,valorcooreo,ban);
+                insertar(valorcarnet,valordpi,valornombre,valorarrera,vallorpass,valorcredit,valoredad,valorcooreo,ban);
+                
                     if(valorfal==true){
                         Clear();
                         
@@ -810,16 +809,18 @@ else
 void menumodificar(){
     
     string verdad;
+    
     cout<<"Introducir DPI: ";
     cin>>n;
+    dpibu=n;
     if(n.size()==13){
             stringstream ss;  
             ss << n;  
             ss >> num;
 
-            if(buscar(num)==true){
-                    dpibu=num;
-                    desplegar(num);
+            if(buscar(n)==true){
+                    dpibu=n;
+                    desplegar(dpibu);
                     cambiares();
 
 
@@ -861,19 +862,16 @@ cout << "Escoja una opcion:" << endl;
                 cout<<"Ingresar Carnet"<<endl;
                 cin>>carnets;
                 if (carnets.size()==9)
-                {     stringstream ss;  
-                      ss << carnets; 
-                      ss >> numc; 
-                    if (buscar2(numc)==false)
+                {     
+                    if (buscar2(carnets)==false)
                     {   
                         
                         cout<<"Ingresar dpi"<<endl;
                         cin>>dpis;
                         if (dpis.size()==13)
-                        {  stringstream ss;  
-                            ss << dpis; 
-                            ss >> numd; 
-                            if (buscar(numd)==false)
+                        {  
+                             
+                            if (buscar(dpis)==false)
                             {
                                 cout<<"Ingresar Nombre Completo"<<endl;
                                 cin>>names;
@@ -892,7 +890,7 @@ cout << "Escoja una opcion:" << endl;
                                 cin>>creditoos;
                                 cout<<"Ingresar Edad"<<endl;
                                 cin>>edades;
-                                insertar(numc,numd,names,carreras,pass,creditoos,edades,correos,flag);
+                                insertar(carnets,dpis,names,carreras,pass,creditoos,edades,correos,flag);
                                 Clear();
                                 cout<<"----------------------"<<endl;
                                 cout<<"Aguardado Presione Enter para Continuar"<<endl;
@@ -1026,7 +1024,11 @@ cout << "Escoja una opcion:" << endl;
 cin>>n; /*Esto porque scanf devuelve valor 0 cuando el valor ingresado no es del formato solicitado*/
 
 if (check_number(n)==true)
-{    
+{    regex regexp("^(\\w|\\.|\\_|\\-)+[@](\\w|\\_|\\-|\\.)+[.]\\w{2,3}$");
+ smatch m;
+    int age;
+    string nos;
+    int numero;
 stringstream ss;  
   ss << n;  
   ss >> num;
@@ -1042,6 +1044,11 @@ stringstream ss;
         while(getline(myfile,line)) {
             
             stringstream stream(line);
+            bool dp,ca,co,verca;
+            dp=false;
+            ca=false;
+            co=false;
+            verca=false;
             string Carnet,DPI,Nombre,Carrera,Correo,Password,Creditos,Edad;
 
             getline(stream,Carnet,',');
@@ -1053,84 +1060,123 @@ stringstream ss;
             
             getline(stream,Edad,',');
             getline(stream,Correo,',');
-                    cout<<"Carnet:"+Carnet<<endl;
-                    cout<<"DPI"+DPI<<endl;
+                    cout<<"Carnet: "+Carnet<<endl;
+                    cout<<"DPI: "+DPI<<endl;
                     cout<<Correo<<endl;
-                    getch();
-             if (Carnet.size()==9)
-                {     stringstream ss;  
-                      ss << Carnet; 
-                      ss >> numc; 
-                         if (buscar2(numc)==false)
-                    {   
+                    
+         int numero=   atoi( DPI.c_str() );
+          stringstream sa;  
+                      sa << Carnet; 
+                      sa >> numc;
+
+         
+            
+
+    
+            stringstream se; 
+            se<<Edad;
+         se >> age;
+            
+            
 
 
-                            if (DPI.size()==13)
-                            {
-                                stringstream ss;  
-                            ss << DPI; 
-                            ss >> numd; 
-
-                            if (buscar(numd)==false)
-                            {
-                                    regex regexp("^(\\w|\\.|\\_|\\-)+[@](\\w|\\_|\\-|\\.)+[.]\\w{2,3}$");
-                                smatch m; 
-                                if (regex_search(Correo,m,regexp))
-                                {       stringstream ss; 
-                                        int age; 
-                                     ss << Edad; 
-                                            ss >> age; 
-
-                                         insertar(numc,numd,Nombre,Carrera,Password,Creditos,age,Correo,flag);
-                                         
-
-                                }else
-                                {   
-                                    cout<<"error de email";
-                                    
-                                }
-                                
-
-
-                            }else
-                            {
-                                cout<<"dpi ya ingresado: ";
-                                cout<<DPI<<endl;
-                            }
-                            
-
-                                
-
-                            }else
-                            {
-                                 cout<<"Cola de error de numero de dpi"<<endl;
-                            }
-                            
-                            
-
-                    }   else{
-
-
-                        cout<<"Carnet ya ingresado: ";
-                                cout<<Carnet<<endl;
-                    }
+             if (DPI.size()==13)
+             {
                 
-                  
+             }else{
+                 flag=false;
+                 dp=true;
+             }
+
+             if (Carnet.size()==9)
+             {
+                
+             }else{
+                 flag=false;
+                 ca=true;
+             }if (regex_search(Correo,m,regexp))
+                                {
+
+
                 }else
                 {
-                    cout<<"Cola de error de numero de carnet"<<endl;
+                    flag=false;
+                    co=true;
                 }
+        
+            if(buscar(DPI)==false){
                 
+                    if(buscar2(DPI)==true){
+                        verca=true;
+
+
+                    }
+
+                    if(verca==true){
+                        if(dp==true  && co==true){
+
+                            insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
+                            cola1.colaerror("Estudiante","Carnet Ya existe, Correo no tiene formato correcto y DPI no tiene 13 numeros",DPI);
+                        }else if (dp==true)
+                        {
+                            insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
+                            cola1.colaerror("Estudiante","Carnet Ya existe  y DPI no tiene 13 numeros",DPI);
+
+                        }else if (co==true)
+                        {
+                            insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
+                            cola1.colaerror("Estudiante","Carnet Ya existe Y Correo no tiene formato correcto ",DPI);
+                        }else
+                        {
+                            insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
+                            cola1.colaerror("Estudiante","Carnet Ya existe",DPI);
+                        }
+                        
+                    }
+                    else
+                    {
+                        if(dp==true  && co==true){
+
+                            insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
+                            cola1.colaerror("Estudiante"," Correo no tiene formato correcto y DPI no tiene 13 numeros",DPI);
+                        }else if (dp==true)
+                        {
+                            insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
+                            cola1.colaerror("Estudiante"," DPI no tiene 13 numeros",DPI);
+
+                        }else if (co==true)
+                        {
+                            insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
+                            cola1.colaerror("Estudiante","Correo no tiene formato correcto ",DPI);
+                        }else
+                        {
+                            insertar(Carnet,DPI,Nombre,Carrera,Password,Creditos,age,Correo,flag);
+                        }
+                        
+                    }
+                    
+
+                    
+                    
+
+            }   else{
 
 
 
-        }
+            }
+        
+        
+                   
+                            
 
-        myfile.close();
+                                                                 
+                                         
+                                         
+                                         }myfile.close();
         cout<<"Aguardado"<<endl;
-                                         getch();
-                                         Clear();
-                                         inicio();
+        getch();
+        Clear();
+        inicio();
 
     }else if (num==2)
     {
