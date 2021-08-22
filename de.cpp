@@ -910,6 +910,11 @@ void menumodificar(){
     
 
 }
+
+void submenu4(){
+
+
+}
 void submenu2(){
 
 cout << "Escoja una opcion:" << endl;
@@ -1047,7 +1052,25 @@ cout << "Escoja una opcion:" << endl;
         }
 }
 void submenu3(){
+cout << "Escoja una opcion:" << endl;
+        cout << "1.- Reporte Estudiante" << endl;
+        cout << "2.- Reporte tarea" << endl;
+        cout << "3.- Reporte errores" << endl;
+        cout << "4.- Salir" << endl;
+        cout<<"Escoger: ";
+        cin>>n;
+        
+        if(check_number(n)==true){
+            stringstream ss;  
+            ss << n;  
+            ss >> num;
 
+            if(num==1){
+
+
+                imprimir();
+                inicio();
+            }
 cout << "Escoja una opcion:" << endl;
         cout << "1.- Ingresar" << endl;
         cout << "2.- Modificar" << endl;
