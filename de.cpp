@@ -1406,7 +1406,7 @@ stringstream ss;
     else if (num==4)
     {
         /* code */
-        cout<<"ok"<<endl;
+        submenu4();
     }
     else
     {
